@@ -130,3 +130,20 @@ body {
 
 h2 { color: #FF3B30; font-size: 2rem; margin-bottom: 1rem; }
 p { font-size: 1.2rem; opacity: 0.8; }
+
+
+
+
+
+
+/* Hide the text by default (for mobile and tablet) */
+.pc-only {
+  display: none;
+}
+
+/* Show the text only on screens wider than 1024px (PCs) */
+@media (min-width: 1024px) {
+  .pc-only {
+    display: inline; /* Use 'block' if you used a div instead of a span */
+  }
+}
