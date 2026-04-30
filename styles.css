@@ -67,14 +67,14 @@ body {
 
 /* 2. Headline Section (Full Screen) */
 .headline {
-    height: 100vh; /* Exactly the height of the screen */
+    height: 80vh; /* Exactly the height of the screen */
     width: 100%;
     display: flex;
     flex-direction: column; /* Stack vertically if you add sub-text */
     justify-content: center; /* Vertical center */
     align-items: center;     /* Horizontal center */
     text-align: center;
-    padding: 20px;
+    padding: 10px;
 }
 
 .headline h1 {
