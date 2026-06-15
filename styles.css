@@ -38,7 +38,7 @@ ol {
 
 
 .white-box {
-  background-color: #FFFFFF; /* Sets the background to white */
+  background-color: #000000; /* Sets the background to white */
   color: #000000;            /* Sets the text to black for contrast */
   border: 1px solid #CCCCCC; /* Adds a light grey outline */
   padding: 20px;             /* Creates spacing inside the box */
@@ -59,7 +59,7 @@ ol {
 }
 
 body {
-    background-color: #0B0D10;
+    background-color: #101010;
     color: #F7F7F7;
     font-family: 'Inter', sans-serif;
     margin: 0;
