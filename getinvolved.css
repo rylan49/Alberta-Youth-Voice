@@ -10,10 +10,7 @@ body {
     padding: 0;
 }
 
-/* Layout tightening */
-.site-header {
-    padding: 15px 20px;
-}
+/* Header overrides (handled by styles.css) */
 
 .headline {
     text-align: center;
