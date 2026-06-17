@@ -2,4 +2,4 @@ This is an advocacy website for youth being unfairly targetted by the Canadian G
 
 Credits
 Rylan: Content specialist and programmer
-Jack: Website Designer
+Jack (FiberShield): Website Designer
