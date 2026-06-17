@@ -8,4 +8,4 @@ Credits
 Rylan: Content specialist and programmer
 
 
-Jack (FiberShield): Website Designer & Improvement Specialist
+Jack (FiberShield): Web Design & Improvement Specialist
