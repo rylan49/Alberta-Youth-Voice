@@ -1,0 +1,44 @@
+{
+  "fetchedAt": "2026-06-17T00:00:00.000Z",
+  "statusText": "At second reading in the House of Commons",
+  "latestStageName": "First Reading",
+  "latestStageDate": "2026-06-10T16:17:46.567Z",
+  "stages": {
+    "houseFirstReading": {
+      "state": 4,
+      "date": "2026-06-10T16:17:46.567Z"
+    },
+    "houseSecondReading": {
+      "state": 2,
+      "date": null
+    },
+    "houseCommittee": {
+      "state": 1,
+      "date": null
+    },
+    "houseReportStage": {
+      "state": 1,
+      "date": null
+    },
+    "houseThirdReading": {
+      "state": 1,
+      "date": null
+    },
+    "senateFirstReading": {
+      "state": 1,
+      "date": null
+    },
+    "senateSecondReading": {
+      "state": 1,
+      "date": null
+    },
+    "senateThirdReading": {
+      "state": 1,
+      "date": null
+    },
+    "royalAssent": {
+      "state": 1,
+      "date": null
+    }
+  }
+}

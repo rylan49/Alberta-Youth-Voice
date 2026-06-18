@@ -6,10 +6,18 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
     <link rel="icon" type="image/svg+xml" href="/images/logo.svg">
     <meta name="description" content="Protect your right to free expression and privacy.">
 </head>
 <body>
+
+<noscript>
+  <div style="background-color: #333333; border-bottom: 2px solid #FF3B30; padding: 1rem; text-align: center; color: #ffffff;">
+    <p style="margin: 0; font-weight: bold;">⚠️ JavaScript is disabled</p>
+    <p style="margin: 0.5rem 0 0; font-size: 0.95rem;">Most features work fine. Some interactive tools below have direct links you can use instead.</p>
+  </div>
+</noscript>
 
 <header class="site-header">
   <a href="index.html" class="logo-area">
@@ -30,6 +38,17 @@
       <li><a href="privacypolicy.html">Privacy</a></li>
     </ul>
   </nav>
+  <noscript>
+    <nav class="site-nav-noscript">
+      <ul class="site-nav-noscript-list">
+        <li><a href="index.html" class="nav-active">Home</a></li>
+        <li><a href="fullcharterargument.html">Charter Argument</a></li>
+        <li><a href="getinvolved.html">Get Involved</a></li>
+        <li><a href="testimonials.html">Testimonials</a></li>
+        <li><a href="privacypolicy.html">Privacy</a></li>
+      </ul>
+    </nav>
+  </noscript>
 </header>
 
 <h1 class="headline">
@@ -60,6 +79,17 @@
 <div class="message reveal" id="mp-tool">
   <h2>Find Your Member of Parliament</h2>
   <p>Enter your postal code to find the MP who represents you, then send them the editable message below. Everything happens in your browser — we never see or store your postal code.</p>
+
+  <noscript>
+    <div style="background-color: #1a1a1a; border: 2px solid #3a3a3a; border-radius: 8px; padding: 1.5rem; margin: 1.5rem auto; max-width: 500px;">
+      <p style="margin-top: 0; color: #c0c0c0;"><strong>MP lookup requires JavaScript.</strong> Use these links instead:</p>
+      <ul style="margin: 1rem 0; padding-left: 20px;">
+        <li><a href="https://www.ourcommons.ca/members/en" target="_blank" rel="noopener">Find your MP on ourcommons.ca</a></li>
+        <li><a href="https://represent.opennorth.ca/" target="_blank" rel="noopener">Use OpenNorth's Represent API directly</a></li>
+      </ul>
+      <p style="margin-bottom: 0; color: #888; font-size: 0.9rem;">Once you find your MP, use the pre-written message below or email them directly.</p>
+    </div>
+  </noscript>
 
   <form id="mp-form" class="mp-form" autocomplete="off" novalidate>
     <input id="postal" name="postal" type="text" inputmode="text" maxlength="7"
@@ -109,11 +139,137 @@ Sincerely,
   </details>
 </div>
 
-<div class="message reveal">
-    <h2>Where Canada Currently Stands</h2>
-    <p>Right now, the ban is not law yet, but the wheels are officially in motion. On June 10, 2026, the federal government (under Prime Minister Mark Carney and Culture Minister Marc Miller) introduced <b>Bill C-34,</b> the Safe Social Media Act.</p>
-      <p> This is the government's latest attempt to create a legal framework for online safety, following previous failed attempts like 2024's Bill C-63. Because the current government has a majority, this bill has a much smoother path to passing Parliament, though it still has to go through the standard legislative process.</p> 
-      <p>The government has stated that setting up the necessary regulatory body to enforce the rules—the new Digital Safety Commission of Canada—could take up to 18 months after the bill officially becomes law.</p>
+<div class="message reveal" id="bill-tracker">
+  <h2>Where Canada Currently Stands</h2>
+  <p class="bill-status-summary" id="bill-status-summary">Loading bill status…</p>
+
+  <noscript>
+    <div style="background-color: #1a1a1a; border: 2px solid #3a3a3a; border-radius: 8px; padding: 1.5rem; margin: 1.5rem auto; max-width: 500px; text-align: left;">
+      <p style="margin-top: 0;"><strong>Bill Status (last updated June 17, 2026):</strong></p>
+      <p style="margin: 0.5rem 0;">House of Commons - First Reading: ✓ Completed</p>
+      <p style="margin: 0.5rem 0;">House of Commons - Second Reading: ⧖ In Progress</p>
+      <p style="margin: 0.5rem 0;">House of Commons - Committee: ○ Not yet reached</p>
+      <p style="margin: 0.5rem 0;">House of Commons - Report Stage: ○ Not yet reached</p>
+      <p style="margin: 0.5rem 0;">House of Commons - Third Reading: ○ Not yet reached</p>
+      <p style="margin: 0.5rem 0;">Senate: ○ Not yet reached</p>
+      <p style="margin: 0.5rem 0;">Royal Assent: ○ Not yet reached</p>
+      <p style="margin: 1rem 0 0; color: #888; font-size: 0.9rem;">
+        <a href="https://www.parl.ca/LegisInfo/en/bill/45-1/c-34" target="_blank" rel="noopener">View full bill status on Parliament.ca</a>
+      </p>
+    </div>
+  </noscript>
+
+  <div class="bill-pipeline" aria-label="Bill C-34 legislative pipeline">
+
+    <p class="pipeline-chamber-label">House of Commons</p>
+    <ol class="pipeline-stages">
+      <li class="pipeline-step" data-stage="houseFirstReading">
+        <span class="step-dot"><i class="fas fa-circle" aria-hidden="true"></i></span>
+        <span class="step-name">First Reading</span>
+        <span class="step-date"></span>
+      </li>
+      <li class="pipeline-step" data-stage="houseSecondReading">
+        <span class="step-dot"><i class="fas fa-circle" aria-hidden="true"></i></span>
+        <span class="step-name">Second Reading</span>
+        <span class="step-date"></span>
+      </li>
+      <li class="pipeline-step" data-stage="houseCommittee">
+        <span class="step-dot"><i class="fas fa-circle" aria-hidden="true"></i></span>
+        <span class="step-name">Committee</span>
+        <span class="step-date"></span>
+      </li>
+      <li class="pipeline-step" data-stage="houseReportStage">
+        <span class="step-dot"><i class="fas fa-circle" aria-hidden="true"></i></span>
+        <span class="step-name">Report Stage</span>
+        <span class="step-date"></span>
+      </li>
+      <li class="pipeline-step" data-stage="houseThirdReading">
+        <span class="step-dot"><i class="fas fa-circle" aria-hidden="true"></i></span>
+        <span class="step-name">Third Reading</span>
+        <span class="step-date"></span>
+      </li>
+    </ol>
+
+    <div class="pipeline-connector" aria-hidden="true"></div>
+
+    <p class="pipeline-chamber-label">Senate</p>
+    <ol class="pipeline-stages">
+      <li class="pipeline-step" data-stage="senateFirstReading">
+        <span class="step-dot"><i class="fas fa-circle" aria-hidden="true"></i></span>
+        <span class="step-name">First Reading</span>
+        <span class="step-date"></span>
+      </li>
+      <li class="pipeline-step" data-stage="senateSecondReading">
+        <span class="step-dot"><i class="fas fa-circle" aria-hidden="true"></i></span>
+        <span class="step-name">Second Reading</span>
+        <span class="step-date"></span>
+      </li>
+      <li class="pipeline-step" data-stage="senateThirdReading">
+        <span class="step-dot"><i class="fas fa-circle" aria-hidden="true"></i></span>
+        <span class="step-name">Third Reading</span>
+        <span class="step-date"></span>
+      </li>
+    </ol>
+
+    <div class="pipeline-connector" aria-hidden="true"></div>
+
+    <ol class="pipeline-stages pipeline-assent">
+      <li class="pipeline-step pipeline-step--assent" data-stage="royalAssent">
+        <span class="step-dot"><i class="fas fa-circle" aria-hidden="true"></i></span>
+        <span class="step-name">Royal Assent</span>
+        <span class="step-date"></span>
+      </li>
+    </ol>
+
+  </div>
+
+  <p class="bill-last-updated" id="bill-last-updated"></p>
+  <p style="font-size:0.9rem; margin-top: 0;">
+    <a href="https://www.parl.ca/LegisInfo/en/bill/45-1/c-34" target="_blank" rel="noopener">
+      View on parliament.ca <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i>
+    </a>
+  </p>
+</div>
+
+<div class="message reveal" id="petition-section">
+    <h2>Add Your Voice</h2>
+    <p>Join thousands of Canadians calling for the rejection of Bill C-34. Sign the petition against age verification and internet censorship.</p>
+
+    <noscript>
+      <div style="background-color: #1a1a1a; border: 2px solid #3a3a3a; border-radius: 8px; padding: 1.5rem; margin: 1.5rem auto; max-width: 500px;">
+        <p style="margin-top: 0;"><strong>Sign the petition:</strong></p>
+        <p style="margin: 1rem 0;"><a href="https://theccf.ca/stopc34/" target="_blank" rel="noopener" style="background-color: #FF3B30; color: white; padding: 0.75rem 1.5rem; text-decoration: none; border-radius: 8px; display: inline-block; font-weight: bold;">Go to CCF Petition →</a></p>
+        <p style="margin-bottom: 0; color: #888; font-size: 0.9rem;">The form below requires JavaScript. Click the button above to sign the petition directly on the Canadian Constitution Foundation's website.</p>
+      </div>
+    </noscript>
+
+    <form id="petition-form" class="petition-form" autocomplete="off">
+      <div class="form-group">
+        <label for="petition-fname">First Name</label>
+        <input type="text" id="petition-fname" name="fname" required placeholder="First Name">
+      </div>
+
+      <div class="form-group">
+        <label for="petition-lname">Last Name</label>
+        <input type="text" id="petition-lname" name="lname" required placeholder="Last Name">
+      </div>
+
+      <div class="form-group">
+        <label for="petition-email">Email</label>
+        <input type="email" id="petition-email" name="email" required placeholder="Email (required)">
+      </div>
+
+      <div class="form-group">
+        <label for="petition-postal">Postal Code</label>
+        <input type="text" id="petition-postal" name="postal" required placeholder="Postal Code">
+      </div>
+
+      <button type="submit" class="skip-btn petition-submit">Add My Signature</button>
+
+      <p id="petition-message" style="font-size: 0.9rem; color: #888; margin-top: 1rem; display: none;"></p>
+    </form>
+
+    <p style="font-size: 0.85rem; color: #555; margin-top: 1rem; text-align: center;">Your signature will be added to the Stop Bill C-34 petition. <a href="https://theccf.ca/stopc34/" target="_blank" rel="noopener" style="color: #8ab4f8; text-decoration: underline;">View the full petition</a> on the Canadian Constitution Foundation website.</p>
 </div>
 
 <div class="message reveal">
