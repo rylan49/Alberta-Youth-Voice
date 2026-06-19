@@ -50,15 +50,6 @@ ol { text-align: left; }
 ul { margin-top: 5px; padding-left: 20px; }
 li { color: #ffffff; margin-bottom: 8px; }
 
-a:focus-visible,
-button:focus-visible,
-summary:focus-visible,
-input:focus-visible,
-textarea:focus-visible {
-    outline: 3px solid #8ab4f8;
-    outline-offset: 3px;
-}
-
 /* 3. Site header + Nav
    ------------------------------------------------------------ */
 .site-header {
@@ -259,8 +250,13 @@ textarea:focus-visible {
     align-items: center;
     text-align: center;
     padding: 10px;
+}
+
+.headline h1 {
     font-size: clamp(2rem, 8vw, 4.5rem);
     line-height: 1.1;
+    max-width: 900px;
+    margin: 0;
 }
 
 .underline-animate {
@@ -369,11 +365,6 @@ textarea:focus-visible {
     font-weight: bold;
 }
 
-.skip-btn:disabled {
-    cursor: not-allowed;
-    opacity: 0.55;
-}
-
 /* Stack the hero buttons in a horizontal row on wider screens */
 @media (min-width: 700px) {
     .btn-row {
@@ -415,10 +406,7 @@ textarea:focus-visible {
     cursor: pointer;
     font-weight: bold;
     font-size: 1.1em;
-}
-
-#target-section {
-    scroll-margin-top: 90px;
+    outline: none;
 }
 
 /* Center lists inside content blocks (no left bullet indent) */
@@ -427,44 +415,6 @@ textarea:focus-visible {
     padding-left: 0;
     text-align: center;
     width: 100%;
-}
-
-.message .prepared-list {
-    display: grid;
-    gap: 12px;
-    list-style: none;
-    max-width: 760px;
-    margin: 1.25rem auto 0;
-    padding: 0;
-    text-align: left;
-}
-
-.prepared-list li {
-    position: relative;
-    margin: 0;
-    padding: 14px 16px 14px 44px;
-    background-color: #1a1a1a;
-    border: 1px solid #3a3a3a;
-    border-left: 4px solid #ff3300;
-    border-radius: 8px;
-    color: #d8d8d8;
-    line-height: 1.55;
-}
-
-.prepared-list li::before {
-    content: "";
-    position: absolute;
-    top: 1.2rem;
-    left: 18px;
-    width: 9px;
-    height: 9px;
-    background-color: #ff3300;
-    border-radius: 50%;
-    box-shadow: 0 0 0 4px rgba(255, 51, 0, 0.16);
-}
-
-.prepared-list strong {
-    color: #ffffff;
 }
 
 .template-body {
@@ -501,7 +451,7 @@ textarea:focus-visible {
 
 .mp-input-wide { max-width: none; }
 
-.mp-input:focus { border-color: #ff3300; }
+.mp-input:focus { outline: none; border-color: #ff3300; }
 
 .mp-form .mp-submit { margin: 0; }
 
@@ -574,7 +524,7 @@ textarea:focus-visible {
     resize: vertical;
 }
 
-.mp-textarea:focus { border-color: #ff3300; }
+.mp-textarea:focus { outline: none; border-color: #ff3300; }
 
 .mp-actions {
     display: flex;
@@ -737,6 +687,7 @@ textarea:focus-visible {
 }
 
 .form-group input:focus {
+    outline: none;
     border-color: #FF3B30;
 }
 
@@ -956,7 +907,6 @@ textarea:focus-visible {
     color: #8ab4f8;
     transition: color 0.15s ease, transform 0.15s ease;
     text-decoration: none;
-    min-height: 44px;
 }
 
 .social-icons a:hover {
