@@ -84,7 +84,7 @@
 
 <div class="message reveal" id="mp-tool">
   <h2>Find Your Member of Parliament</h2>
-  <p>Enter your postal code to find the MP who represents you, then send them the editable message below. Everything happens in your browser — we never see or store your postal code.</p>
+  <p>Enter your postal code to find the MP who represents you, then send them the editable message below. BackOnline never receives or stores your postal code; your browser sends it directly to OpenNorth for the lookup.</p>
 
   <noscript>
     <div style="background-color: #1a1a1a; border: 2px solid #3a3a3a; border-radius: 8px; padding: 1.5rem; margin: 1.5rem auto; max-width: 500px;">
@@ -137,7 +137,7 @@ Sincerely,
 [Your Postal Code]</textarea>
 
       <div class="mp-actions">
-        <button type="button" id="mp-send" class="skip-btn">Open in Email App</button>
+        <button type="button" id="mp-send" class="skip-btn" disabled>Open in Email App</button>
         <button type="button" id="mp-copy" class="skip-btn mp-secondary">Copy Message</button>
       </div>
       <p class="mp-fallback">Prefer to do it by hand? You can also send a letter postage free. <a href="https://www.ourcommons.ca/members/en"><strong>ourcommons.ca</strong></a> directory.</p>
@@ -170,27 +170,27 @@ Sincerely,
     <p class="pipeline-chamber-label">House of Commons</p>
     <ol class="pipeline-stages">
       <li class="pipeline-step" data-stage="houseFirstReading">
-        <span class="step-dot"><i class="fas fa-circle" aria-hidden="true"></i></span>
+        <span class="step-dot" aria-hidden="true">○</span>
         <span class="step-name">First Reading</span>
         <span class="step-date"></span>
       </li>
       <li class="pipeline-step" data-stage="houseSecondReading">
-        <span class="step-dot"><i class="fas fa-circle" aria-hidden="true"></i></span>
+        <span class="step-dot" aria-hidden="true">○</span>
         <span class="step-name">Second Reading</span>
         <span class="step-date"></span>
       </li>
       <li class="pipeline-step" data-stage="houseCommittee">
-        <span class="step-dot"><i class="fas fa-circle" aria-hidden="true"></i></span>
+        <span class="step-dot" aria-hidden="true">○</span>
         <span class="step-name">Committee</span>
         <span class="step-date"></span>
       </li>
       <li class="pipeline-step" data-stage="houseReportStage">
-        <span class="step-dot"><i class="fas fa-circle" aria-hidden="true"></i></span>
+        <span class="step-dot" aria-hidden="true">○</span>
         <span class="step-name">Report Stage</span>
         <span class="step-date"></span>
       </li>
       <li class="pipeline-step" data-stage="houseThirdReading">
-        <span class="step-dot"><i class="fas fa-circle" aria-hidden="true"></i></span>
+        <span class="step-dot" aria-hidden="true">○</span>
         <span class="step-name">Third Reading</span>
         <span class="step-date"></span>
       </li>
@@ -201,17 +201,17 @@ Sincerely,
     <p class="pipeline-chamber-label">Senate</p>
     <ol class="pipeline-stages">
       <li class="pipeline-step" data-stage="senateFirstReading">
-        <span class="step-dot"><i class="fas fa-circle" aria-hidden="true"></i></span>
+        <span class="step-dot" aria-hidden="true">○</span>
         <span class="step-name">First Reading</span>
         <span class="step-date"></span>
       </li>
       <li class="pipeline-step" data-stage="senateSecondReading">
-        <span class="step-dot"><i class="fas fa-circle" aria-hidden="true"></i></span>
+        <span class="step-dot" aria-hidden="true">○</span>
         <span class="step-name">Second Reading</span>
         <span class="step-date"></span>
       </li>
       <li class="pipeline-step" data-stage="senateThirdReading">
-        <span class="step-dot"><i class="fas fa-circle" aria-hidden="true"></i></span>
+        <span class="step-dot" aria-hidden="true">○</span>
         <span class="step-name">Third Reading</span>
         <span class="step-date"></span>
       </li>
@@ -221,7 +221,7 @@ Sincerely,
 
     <ol class="pipeline-stages pipeline-assent">
       <li class="pipeline-step pipeline-step--assent" data-stage="royalAssent">
-        <span class="step-dot"><i class="fas fa-circle" aria-hidden="true"></i></span>
+        <span class="step-dot" aria-hidden="true">○</span>
         <span class="step-name">Royal Assent</span>
         <span class="step-date"></span>
       </li>
@@ -232,14 +232,14 @@ Sincerely,
   <p class="bill-last-updated" id="bill-last-updated"></p>
   <p style="font-size:0.9rem; margin-top: 0;">
     <a href="https://www.parl.ca/LegisInfo/en/bill/45-1/c-34" target="_blank" rel="noopener">
-      View on parliament.ca <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i>
+      View on parliament.ca <span class="external-icon" aria-hidden="true">↗</span>
     </a>
   </p>
 </div>
 
 <div class="message reveal" id="petition-section">
     <h2>Add Your Voice</h2>
-    <p>Join thousands of Canadians calling for the rejection of Bill C-34. Sign the petition against age verification and internet censorship.</p>
+    <p>Join Canadians calling for the rejection of Bill C-34. Sign the petition against age verification and internet censorship.</p>
 
     <noscript>
       <div style="background-color: #1a1a1a; border: 2px solid #3a3a3a; border-radius: 8px; padding: 1.5rem; margin: 1.5rem auto; max-width: 500px;">
@@ -275,26 +275,26 @@ Sincerely,
       <p id="petition-message" style="font-size: 0.9rem; color: #888; margin-top: 1rem; display: none;"></p>
     </form>
 
-    <p style="font-size: 0.85rem; color: #555; margin-top: 1rem; text-align: center;">Your signature will be added to the Stop Bill C-34 petition. <a href="https://theccf.ca/stopc34/" target="_blank" rel="noopener" style="color: #8ab4f8; text-decoration: underline;">View the full petition</a> on the Canadian Constitution Foundation website.</p>
+    <p style="font-size: 0.85rem; color: #777; margin-top: 1rem; text-align: center;">Your submission is sent directly to the Stop Bill C-34 petition. <a href="https://theccf.ca/stopc34/" target="_blank" rel="noopener" style="color: #8ab4f8; text-decoration: underline;">View the full petition</a> on the Canadian Constitution Foundation website.</p>
 </div>
 
 <div class="message reveal">
     <h2 id="target-section">Get prepared</h2>
     <p>Information will appear here as needed, there are currently no restrictions for under 16's going on social media in Canada. (Updated June 15, 2026)</p>
     <p>While we're uncertain, you can already prepare by downloading 4 apps on your iPhone.</p>
-    <ul>
-  <li><strong>Proton VPN:</strong> A secure, zero-logs virtual private network service offering reliable free tier servers.</li>
-  <li><strong>Onion Browser:</strong> An open-source browser utility utilizing localized routing technology to maximize online privacy.</li>
-  <li><strong>WireGuard:</strong> A fast, modern protocol that allows users to configure custom, private VPN connections manually.</li>
-  <li><strong>Mullvad VPN:</strong> A privacy-focused, paid VPN service heavily optimized for censorship resistance and anonymity.</li>
-</ul>
+    <ul class="prepared-list">
+      <li><strong>Proton VPN:</strong> Use it to reach blocked apps and websites.</li>
+      <li><strong>Onion Browser:</strong> Use it when regular browsers cannot open a site.</li>
+      <li><strong>WireGuard:</strong> Use it to connect to a private VPN server.</li>
+      <li><strong>Mullvad VPN:</strong> Use it if free VPNs are blocked or too slow.</li>
+    </ul>
 </div>
 
 <footer class="site-footer-vertical">
   <div class="footer-main">
     <div class="footer-item">
       <h4>Contact</h4>
-      <p>Have a question? <a href="mailto:connect@backonline.ca"><i class="fas fa-envelope"></i></a></p>
+      <p>Have a question? <a href="mailto:connect@backonline.ca" aria-label="Email BackOnline">Email us</a></p>
       <code class="box">connect@backonline.ca</code>
     </div>
 
