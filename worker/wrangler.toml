@@ -20,7 +20,7 @@ new_sqlite_classes = ["Counter"]
 # then paste the printed id below.
 [[kv_namespaces]]
 binding = "RATELIMIT"
-id = "PASTE_KV_NAMESPACE_ID_HERE"
+id = "926805898e724c6488b4e4e06a1e8b00"
 
 # --- Public vars ---
 [vars]
