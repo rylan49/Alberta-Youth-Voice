@@ -21,21 +21,22 @@
     });
 })();
 
-// This function watches for elements with the 'reveal' class
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-            // Add the 'active' class when the element is visible
-            entry.target.classList.add('active');
-        }
-    });
-}, {
-    threshold: 0.1 // Triggers when 10% of the element is visible
-});
-
-// Tell the observer to watch all elements with the 'reveal' class
 const revealElements = document.querySelectorAll('.reveal');
-revealElements.forEach((el) => observer.observe(el));
+
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    revealElements.forEach((el) => el.classList.add('active'));
+} else {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    revealElements.forEach((el) => observer.observe(el));
+}
 
 
 // ---- Find Your MP tool ----
@@ -98,7 +99,7 @@ revealElements.forEach((el) => observer.observe(el));
 
         fillName(mp.name);
         result.hidden = false;
-        result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        result.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'nearest' });
     }
 
     async function lookup(rawCode) {
@@ -168,17 +169,13 @@ revealElements.forEach((el) => observer.observe(el));
 
     function applyStepState(li, state, dateStr) {
         li.classList.remove('step--completed', 'step--active', 'step--pending');
-        var icon = li.querySelector('.step-dot i');
 
         if (state === STATE_COMPLETED) {
             li.classList.add('step--completed');
-            icon.className = 'fas fa-circle-check';
         } else if (state === STATE_IN_PROGRESS) {
             li.classList.add('step--active');
-            icon.className = 'fas fa-circle-half-stroke';
         } else {
             li.classList.add('step--pending');
-            icon.className = 'fas fa-circle';
         }
 
         var dateEl = li.querySelector('.step-date');

@@ -176,7 +176,6 @@ a:hover, .contact-button:hover {
   font-size: 0.9rem;
   font-weight: 500;
   letter-spacing: 0.02em;
-  transition: color 0.15s ease;
 }
 
 .site-nav a:hover { color: #ffffff; }
@@ -196,12 +195,10 @@ a:hover, .contact-button:hover {
   font-size: 1.8rem;
   color: #8b949e;
   text-decoration: none;
-  transition: color 0.15s ease, transform 0.15s ease;
 }
 
 .social-icons a:hover {
   color: #ffffff;
-  transform: scale(1.1);
 }
 
 .logo-area {
@@ -242,7 +239,6 @@ a:hover, .contact-button:hover {
   height: 2.5px;
   background-color: #ffffff;
   border-radius: 2px;
-  transition: all 0.3s ease;
 }
 
 .nav-toggle.active span:nth-child(1) {
@@ -273,7 +269,6 @@ a:hover, .contact-button:hover {
     gap: 0;
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease;
     border-bottom: 1px solid #21262d;
   }
 
@@ -304,3 +299,4 @@ a:hover, .contact-button:hover {
 @media (max-width: 600px) {
   .brand-name { display: none; }
 }
+

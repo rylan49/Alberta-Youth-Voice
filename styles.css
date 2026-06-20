@@ -91,7 +91,6 @@ li { color: #ffffff; margin-bottom: 8px; }
     font-weight: 500;
     font-family: inherit;
     letter-spacing: 0.02em;
-    transition: color 0.15s ease;
 }
 
 .site-nav a:hover { color: #ffffff; }
@@ -114,7 +113,6 @@ li { color: #ffffff; margin-bottom: 8px; }
     height: 2.5px;
     background-color: #ffffff;
     border-radius: 2px;
-    transition: all 0.3s ease;
 }
 
 .nav-toggle.active span:nth-child(1) {
@@ -169,7 +167,6 @@ li { color: #ffffff; margin-bottom: 8px; }
         gap: 0;
         max-height: 400px;
         overflow: hidden;
-        transition: max-height 0.3s ease;
         border-bottom: 1px solid #2a2a2a;
     }
 
@@ -261,34 +258,17 @@ li { color: #ffffff; margin-bottom: 8px; }
 
 .underline-animate {
     background: linear-gradient(90deg, #FF3B30 0%, #FF3B30 100%);
-    background-size: 0% 4px;
+    background-size: 100% 4px;
     background-position: 0% 100%;
     background-repeat: no-repeat;
-    animation: underlineSlide 0.6s ease-out 0.8s forwards;
-}
-
-@keyframes underlineSlide {
-    to {
-        background-size: 100% 4px;
-    }
 }
 
 /* The censored word that un-redacts itself */
 .secret {
-    background-color: #F7F7F7;
-    color: #F7F7F7;
+    color: #FF3B30;
+    text-decoration: line-through;
     padding: 0 10px;
     display: inline-block;
-    animation: revealBox 1s forwards;
-    animation-delay: 1.3s;
-}
-
-@keyframes revealBox {
-    100% {
-        background-color: transparent;
-        color: #FF3B30;
-        text-decoration: line-through;
-    }
 }
 
 /* 5. Separation barrier + lower content wrapper
@@ -490,19 +470,6 @@ li { color: #ffffff; margin-bottom: 8px; }
 .mp-meta { font-size: 1rem; margin: 0 0 6px; color: #c0c0c0; }
 .mp-email-link { word-break: break-all; }
 
-/* Slide + fade the message in when the details is opened */
-.mp-template[open] .template-body {
-    animation: mpReveal 0.35s ease-out;
-}
-
-@keyframes mpReveal {
-    from { opacity: 0; transform: translateY(-8px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .mp-template[open] .template-body { animation: none; }
-}
 
 .mp-template label {
     display: block;
@@ -556,15 +523,6 @@ li { color: #ffffff; margin-bottom: 8px; }
     max-width: 400px;
     margin: 0 auto;
     text-align: left;
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-    transition-delay: 0.30s;
-}
-
-.reveal.active .bill-pipeline {
-    opacity: 1;
-    transform: translateY(0);
 }
 
 .pipeline-chamber-label {
@@ -601,6 +559,10 @@ li { color: #ffffff; margin-bottom: 8px; }
     display: flex;
     align-items: center;
 }
+
+.step-dot::before { content: "○"; }
+.step--completed .step-dot::before { content: "✓"; }
+.step--active .step-dot::before { content: "◑"; }
 
 .step-name {
     color: #c0c0c0;
@@ -682,7 +644,6 @@ li { color: #ffffff; margin-bottom: 8px; }
     padding: 10px 14px;
     font-size: 0.95rem;
     font-family: inherit;
-    transition: border-color 0.2s ease;
     box-sizing: border-box;
 }
 
@@ -721,64 +682,8 @@ li { color: #ffffff; margin-bottom: 8px; }
     display: block !important;
 }
 
-/* 8. Scroll-reveal "pop up" animation
+/* 8. Helpers (scroll-reveal removed — content displays immediately)
    ------------------------------------------------------------ */
-.reveal {
-    opacity: 0;
-    transform: translateY(40px) scale(0.97);
-    transition: opacity 0.7s ease-out,
-                transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.reveal.active {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-}
-
-/* Stagger the heading and paragraphs so they pop in sequence */
-.reveal h2,
-.reveal p,
-.reveal ul,
-.reveal details {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
-
-.reveal.active h2,
-.reveal.active p,
-.reveal.active ul,
-.reveal.active details {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.reveal.active h2               { transition-delay: 0.08s; }
-.reveal.active p                { transition-delay: 0.20s; }
-.reveal.active p:nth-of-type(2) { transition-delay: 0.30s; }
-.reveal.active p:nth-of-type(3) { transition-delay: 0.40s; }
-.reveal.active ul,
-.reveal.active details          { transition-delay: 0.34s; }
-
-/* Respect users who prefer reduced motion */
-@media (prefers-reduced-motion: reduce) {
-    .reveal,
-    .reveal h2,
-    .reveal p,
-    .reveal ul,
-    .reveal details {
-        opacity: 1;
-        transform: none;
-        transition: none;
-    }
-
-    .secret {
-        animation: none;
-        background-color: transparent;
-        color: #FF3B30;
-        text-decoration: line-through;
-    }
-}
 
 /* 9. Helpers
    ------------------------------------------------------------ */
@@ -830,7 +735,6 @@ li { color: #ffffff; margin-bottom: 8px; }
 .footer-item a {
     color: #8ab4f8;
     text-decoration: none;
-    transition: color 0.15s ease;
 }
 
 .footer-item a:hover {
@@ -905,13 +809,11 @@ li { color: #ffffff; margin-bottom: 8px; }
     justify-content: center;
     font-size: 1.8rem;
     color: #8ab4f8;
-    transition: color 0.15s ease, transform 0.15s ease;
     text-decoration: none;
 }
 
 .social-icons a:hover {
     color: #ffffff;
-    transform: scale(1.1);
 }
 
 /* 11. Testimonials
@@ -992,7 +894,6 @@ li { color: #ffffff; margin-bottom: 8px; }
     border-radius: 14px;
     padding: 22px 16px 18px;
     margin: 0;
-    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1006,7 +907,6 @@ li { color: #ffffff; margin-bottom: 8px; }
 .privacy-app-card:hover {
     background: linear-gradient(135deg, #242424 0%, #1f1f1f 100%);
     border-color: #3a3a3a;
-    transform: translateY(-4px);
     box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
 }
 
@@ -1026,7 +926,6 @@ li { color: #ffffff; margin-bottom: 8px; }
     border-radius: 16px;
     margin-bottom: 14px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .app-icon svg {
@@ -1042,10 +941,6 @@ li { color: #ffffff; margin-bottom: 8px; }
 .mullvad-icon svg {
     width: 34px;
     height: 34px;
-}
-
-.privacy-app-card:hover .app-icon {
-    transform: scale(1.08);
 }
 
 /* Brand colours — tinted gradient tile with the logo in a contrasting colour */

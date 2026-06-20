@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>BackOnline</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="no-referrer">
     <link rel="icon" type="image/svg+xml" href="/images/logo.svg">
@@ -12,18 +11,6 @@
 </head>
 <body>
 
-<noscript>
-  <style>
-    .reveal { opacity: 1 !important; transform: none !important; }
-    .reveal h2, .reveal p, .reveal ul, .reveal details { opacity: 1 !important; transform: none !important; }
-    .bill-pipeline { opacity: 1 !important; transform: none !important; }
-  </style>
-  <div style="background-color: #333333; border-bottom: 2px solid #FF3B30; padding: 1rem; text-align: center; color: #ffffff;">
-    <p style="margin: 0; font-weight: bold;">JavaScript is disabled</p>
-    <p style="margin: 0.5rem 0 0; font-size: 0.95rem;">Most features work fine. Some interactive tools below have direct links you can use instead.</p>
-    <p style="margin: 0.5rem 0 0; font-size: 0.95rem;">Using Tor with NoScript? Awesome for privacy!</p>
-  </div>
-</noscript>
 
 <header class="site-header">
   <a href="index.html" class="logo-area">
@@ -106,7 +93,7 @@
   <p id="mp-status" class="mp-status" role="status" aria-live="polite"></p>
 
   <div id="mp-result" class="mp-result" hidden>
-    <img id="mp-photo" class="mp-photo" alt="" hidden>
+    <img id="mp-photo" class="mp-photo" alt="" hidden loading="lazy">
     <div class="mp-info">
       <h3 id="mp-name"></h3>
       <p id="mp-meta" class="mp-meta"></p>
@@ -147,7 +134,7 @@ Sincerely,
 
 <div class="message reveal" id="bill-tracker">
   <h2>Where Canada Currently Stands</h2>
-  <p class="bill-status-summary" id="bill-status-summary">Loading bill status…</p>
+  <p class="bill-status-summary" id="bill-status-summary">Before Second Reading in the House of Commons. The ban is not yet law.</p>
 
   <noscript>
     <div style="background-color: #1a1a1a; border: 2px solid #3a3a3a; border-radius: 8px; padding: 1.5rem; margin: 1.5rem auto; max-width: 500px; text-align: left;">
@@ -169,28 +156,28 @@ Sincerely,
 
     <p class="pipeline-chamber-label">House of Commons</p>
     <ol class="pipeline-stages">
-      <li class="pipeline-step" data-stage="houseFirstReading">
-        <span class="step-dot"><i class="fas fa-circle" aria-hidden="true"></i></span>
+      <li class="pipeline-step step--completed" data-stage="houseFirstReading">
+        <span class="step-dot" aria-hidden="true"></span>
         <span class="step-name">First Reading</span>
-        <span class="step-date"></span>
+        <span class="step-date">Mar. 6, 2025</span>
       </li>
-      <li class="pipeline-step" data-stage="houseSecondReading">
-        <span class="step-dot"><i class="fas fa-circle" aria-hidden="true"></i></span>
+      <li class="pipeline-step step--active" data-stage="houseSecondReading">
+        <span class="step-dot" aria-hidden="true"></span>
         <span class="step-name">Second Reading</span>
         <span class="step-date"></span>
       </li>
-      <li class="pipeline-step" data-stage="houseCommittee">
-        <span class="step-dot"><i class="fas fa-circle" aria-hidden="true"></i></span>
+      <li class="pipeline-step step--pending" data-stage="houseCommittee">
+        <span class="step-dot" aria-hidden="true"></span>
         <span class="step-name">Committee</span>
         <span class="step-date"></span>
       </li>
-      <li class="pipeline-step" data-stage="houseReportStage">
-        <span class="step-dot"><i class="fas fa-circle" aria-hidden="true"></i></span>
+      <li class="pipeline-step step--pending" data-stage="houseReportStage">
+        <span class="step-dot" aria-hidden="true"></span>
         <span class="step-name">Report Stage</span>
         <span class="step-date"></span>
       </li>
-      <li class="pipeline-step" data-stage="houseThirdReading">
-        <span class="step-dot"><i class="fas fa-circle" aria-hidden="true"></i></span>
+      <li class="pipeline-step step--pending" data-stage="houseThirdReading">
+        <span class="step-dot" aria-hidden="true"></span>
         <span class="step-name">Third Reading</span>
         <span class="step-date"></span>
       </li>
@@ -200,18 +187,18 @@ Sincerely,
 
     <p class="pipeline-chamber-label">Senate</p>
     <ol class="pipeline-stages">
-      <li class="pipeline-step" data-stage="senateFirstReading">
-        <span class="step-dot"><i class="fas fa-circle" aria-hidden="true"></i></span>
+      <li class="pipeline-step step--pending" data-stage="senateFirstReading">
+        <span class="step-dot" aria-hidden="true"></span>
         <span class="step-name">First Reading</span>
         <span class="step-date"></span>
       </li>
-      <li class="pipeline-step" data-stage="senateSecondReading">
-        <span class="step-dot"><i class="fas fa-circle" aria-hidden="true"></i></span>
+      <li class="pipeline-step step--pending" data-stage="senateSecondReading">
+        <span class="step-dot" aria-hidden="true"></span>
         <span class="step-name">Second Reading</span>
         <span class="step-date"></span>
       </li>
-      <li class="pipeline-step" data-stage="senateThirdReading">
-        <span class="step-dot"><i class="fas fa-circle" aria-hidden="true"></i></span>
+      <li class="pipeline-step step--pending" data-stage="senateThirdReading">
+        <span class="step-dot" aria-hidden="true"></span>
         <span class="step-name">Third Reading</span>
         <span class="step-date"></span>
       </li>
@@ -220,8 +207,8 @@ Sincerely,
     <div class="pipeline-connector" aria-hidden="true"></div>
 
     <ol class="pipeline-stages pipeline-assent">
-      <li class="pipeline-step pipeline-step--assent" data-stage="royalAssent">
-        <span class="step-dot"><i class="fas fa-circle" aria-hidden="true"></i></span>
+      <li class="pipeline-step pipeline-step--assent step--pending" data-stage="royalAssent">
+        <span class="step-dot" aria-hidden="true"></span>
         <span class="step-name">Royal Assent</span>
         <span class="step-date"></span>
       </li>
@@ -232,7 +219,7 @@ Sincerely,
   <p class="bill-last-updated" id="bill-last-updated"></p>
   <p style="font-size:0.9rem; margin-top: 0;">
     <a href="https://www.parl.ca/LegisInfo/en/bill/45-1/c-34" target="_blank" rel="noopener">
-      View on parliament.ca <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i>
+      View on parliament.ca <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="0.8em" height="0.8em" fill="currentColor" aria-hidden="true"><path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
     </a>
   </p>
 </div>
@@ -330,7 +317,7 @@ Sincerely,
   <div class="footer-main">
     <div class="footer-item">
       <h4>Contact</h4>
-      <p>Have a question? <a href="mailto:connect@backonline.ca"><i class="fas fa-envelope"></i></a></p>
+      <p>Have a question? <a href="mailto:connect@backonline.ca" aria-label="Send email"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg></a></p>
       <code class="box">connect@backonline.ca</code>
     </div>
 
@@ -347,13 +334,13 @@ Sincerely,
 
   <div class="social-icons">
     <a href="https://www.reddit.com/r/BackOnline/" title="Join us on Reddit" aria-label="Reddit">
-      <i class="fab fa-reddit"></i>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/></svg>
     </a>
     <a href="https://www.tiktok.com/@backonline_ca" title="Follow us on TikTok" aria-label="TikTok">
-      <i class="fab fa-tiktok"></i>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
     </a>
     <a href="https://github.com/rylan49/BackOnline" title="View our code on GitHub" aria-label="GitHub">
-      <i class="fab fa-github"></i>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
     </a>
   </div>
 
@@ -375,6 +362,5 @@ Sincerely,
 
 </div>
 
-<script src="script.js"></script>
 </body>
 </html>
