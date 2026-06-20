@@ -1140,7 +1140,11 @@ li { color: #ffffff; margin-bottom: 8px; }
     gap: 0.5rem;
     max-width: 640px;
     margin: 0.75rem auto 0.25rem auto;
-    padding: 0 0.75rem;
+    padding: 1rem 0.75rem;
+    background-color: #000000;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
 }
 
 .stat-box {
