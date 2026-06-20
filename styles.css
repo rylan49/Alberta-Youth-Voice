@@ -1134,17 +1134,27 @@ li { color: #ffffff; margin-bottom: 8px; }
 
 /* ---- Action counters (MP found · emails sent · petition signatures) ---- */
 .action-stats {
+    position: relative;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 0.5rem;
     max-width: 640px;
-    margin: 0.75rem auto 0.25rem auto;
+    margin: 0 auto;
     padding: 1rem 0.75rem;
-    background-color: #000000;
+    z-index: 0;
+}
+
+.action-stats::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
     width: 100vw;
-    margin-left: calc(-50vw + 50%);
-    margin-right: calc(-50vw + 50%);
+    height: 100%;
+    background-color: #000000;
+    z-index: -1;
 }
 
 .stat-box {
