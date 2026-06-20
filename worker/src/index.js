@@ -1,18 +1,23 @@
-// BackOnline action counter API (Cloudflare Worker)
+// BackOnline action counters (Cloudflare Worker)
+//
+// Tracks three independent, anonymous tallies:
+//   mp_found        - a visitor successfully looked up their MP
+//   email_sent      - a visitor opened a pre-written message in their email app
+//   petition_signed - a visitor submitted the petition form
 //
 // Routes:
-//   POST /api/track-action  -> records one action, max 1 per visitor per UTC day, returns { count, counted }
-//   GET  /api/action-count  -> returns the current total, { count }
+//   POST /api/track-action?type=<mp_found|email_sent|petition_signed>
+//        -> increments that tally, returns { mp_found, email_sent, petition_signed }
+//   GET  /api/action-count
+//        -> returns { mp_found, email_sent, petition_signed }
 //
 // Storage:
-//   COUNTER   - Durable Object holding the atomic, strongly-consistent total.
-//               (KV is the wrong tool for a counter: it is eventually consistent
-//                and caps same-key writes at ~1/sec, so concurrent signs are lost.)
-//   RATELIMIT - KV namespace used only for per-visitor daily dedup, where KV's
-//               native per-key TTL is exactly what we want.
+//   COUNTER - Durable Object holding the three atomic, strongly-consistent totals.
 //
-// Privacy: the visitor IP is never stored or logged. It is hashed (SHA-256 with a
-// secret salt) solely to build a dedup key that auto-expires after 24h.
+// Privacy: no IP address, cookie, or any per-visitor data is read, hashed, or
+// stored. Each request only names which of the three actions happened. Every
+// reported action is counted (no rate limiting), so the totals are best-effort
+// social proof, not a precise or tamper-proof figure.
 
 const ALLOWED_ORIGINS = new Set([
   "https://backonline.ca",
@@ -20,6 +25,8 @@ const ALLOWED_ORIGINS = new Set([
 ]);
 
 const DEFAULT_ORIGIN = "https://backonline.ca";
+
+const ACTION_TYPES = ["mp_found", "email_sent", "petition_signed"];
 
 function corsHeaders(origin) {
   const allow = ALLOWED_ORIGINS.has(origin) ? origin : DEFAULT_ORIGIN;
@@ -44,24 +51,14 @@ function json(body, origin, init) {
   });
 }
 
-async function hashIp(ip, salt) {
-  const data = new TextEncoder().encode(salt + ":" + ip);
-  const digest = await crypto.subtle.digest("SHA-256", data);
-  return [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, "0")).join("");
-}
-
-function utcDay() {
-  return new Date().toISOString().slice(0, 10); // YYYY-MM-DD in UTC
-}
-
-async function readCount(stub) {
+async function readCounts(stub) {
   const res = await stub.fetch("https://counter/read");
-  return Number(await res.text());
+  return res.json();
 }
 
-async function incrementCount(stub) {
-  const res = await stub.fetch("https://counter/increment", { method: "POST" });
-  return Number(await res.text());
+async function incrementCount(stub, type) {
+  const res = await stub.fetch("https://counter/increment?type=" + type, { method: "POST" });
+  return res.json();
 }
 
 export default {
@@ -74,54 +71,52 @@ export default {
     }
 
     const stub = env.COUNTER.get(env.COUNTER.idFromName("global"));
-    const baseline = Number(env.BASELINE_COUNT || 0);
 
     // GET /api/action-count
     if (url.pathname === "/api/action-count" && request.method === "GET") {
-      const count = await readCount(stub);
-      return json({ count: count + baseline }, origin, {
-        headers: { "Cache-Control": "public, max-age=30" },
-      });
+      const counts = await readCounts(stub);
+      return json(counts, origin, { headers: { "Cache-Control": "public, max-age=30" } });
     }
 
-    // POST /api/track-action
+    // POST /api/track-action?type=...
     if (url.pathname === "/api/track-action" && request.method === "POST") {
-      const ip = request.headers.get("CF-Connecting-IP") || "";
-      const key = "rl:" + (await hashIp(ip, env.IP_SALT || DEFAULT_ORIGIN)) + ":" + utcDay();
-
-      // Already counted this visitor today — return the total unchanged.
-      if (await env.RATELIMIT.get(key)) {
-        const count = await readCount(stub);
-        return json({ count: count + baseline, counted: false }, origin);
+      const type = url.searchParams.get("type") || "";
+      if (!ACTION_TYPES.includes(type)) {
+        return json({ error: "invalid type" }, origin, { status: 400 });
       }
-
-      // Reserve the daily slot (expires in 24h), then increment the real total.
-      await env.RATELIMIT.put(key, "1", { expirationTtl: 86400 });
-      const count = await incrementCount(stub);
-      return json({ count: count + baseline, counted: true }, origin);
+      const counts = await incrementCount(stub, type);
+      return json(counts, origin);
     }
 
     return json({ error: "not found" }, origin, { status: 404 });
   },
 };
 
-// Durable Object: the single source of truth for the total.
+// Durable Object: the single source of truth for the three tallies.
 export class Counter {
   constructor(state) {
     this.state = state;
+  }
+
+  async readAll() {
+    const stored = await this.state.storage.get(ACTION_TYPES);
+    const out = {};
+    for (const t of ACTION_TYPES) out[t] = stored.get(t) || 0;
+    return out;
   }
 
   async fetch(request) {
     const url = new URL(request.url);
 
     if (url.pathname === "/increment") {
-      // The DO serializes requests, so this read-modify-write is atomic.
-      const count = ((await this.state.storage.get("count")) || 0) + 1;
-      await this.state.storage.put("count", count);
-      return new Response(String(count));
+      const type = url.searchParams.get("type");
+      if (ACTION_TYPES.includes(type)) {
+        // The DO serializes requests, so this read-modify-write is atomic.
+        const current = (await this.state.storage.get(type)) || 0;
+        await this.state.storage.put(type, current + 1);
+      }
     }
 
-    const count = (await this.state.storage.get("count")) || 0;
-    return new Response(String(count));
+    return Response.json(await this.readAll());
   }
 }

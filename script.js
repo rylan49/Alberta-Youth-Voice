@@ -99,6 +99,9 @@ revealElements.forEach((el) => observer.observe(el));
         fillName(mp.name);
         result.hidden = false;
         result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+        // Let the action counter know an MP was successfully found.
+        document.dispatchEvent(new CustomEvent('action:mp-found'));
     }
 
     async function lookup(rawCode) {
@@ -142,6 +145,12 @@ revealElements.forEach((el) => observer.observe(el));
         const url = 'mailto:' + encodeURIComponent(mpEmail) +
             '?subject=' + encodeURIComponent(subjectEl.value) +
             '&body=' + encodeURIComponent(bodyEl.value);
+
+        // Count it only when there's a real MP address to email.
+        if (mpEmail) {
+            document.dispatchEvent(new CustomEvent('action:email-sent'));
+        }
+
         window.location.href = url;
     });
 
@@ -348,6 +357,9 @@ revealElements.forEach((el) => observer.observe(el));
             form.reset();
             submitBtn.disabled = false;
             submitBtn.textContent = 'Add My Signature';
+
+            // Count the successful signature.
+            document.dispatchEvent(new CustomEvent('action:petition-signed'));
         })
         .catch(function () {
             // Network error - show error message
@@ -372,47 +384,51 @@ revealElements.forEach((el) => observer.observe(el));
 })();
 
 
-// ---- Action Counter (petition signs + MP emails) ----
-// Shows a live "X people have taken action" count and pings the API when a
-// visitor signs the petition or emails their MP. No personal data is sent —
-// just an empty POST. The API caps each visitor at one count per day.
+// ---- Action Counters (MP found · emails sent · petition signatures) ----
+// Shows three live tallies at the top of the page and pings the API when a
+// visitor completes one of those actions. No personal data is sent — just an
+// empty POST naming the action type. The API caps each visitor at one count
+// per type per day.
 (function () {
     var API = 'https://api.backonline.ca';
 
-    var counter = document.getElementById('action-counter');
-    var numberEl = document.getElementById('action-counter-number');
-    if (!counter || !numberEl) return;
+    // Maps each API field + DOM element to the custom event that triggers it.
+    var STATS = [
+        { type: 'mp_found',        el: document.getElementById('stat-mp-found'),        event: 'action:mp-found' },
+        { type: 'email_sent',      el: document.getElementById('stat-email-sent'),      event: 'action:email-sent' },
+        { type: 'petition_signed', el: document.getElementById('stat-petition-signed'), event: 'action:petition-signed' }
+    ];
 
-    function render(count) {
-        if (typeof count !== 'number' || isNaN(count)) return;
-        numberEl.textContent = count.toLocaleString('en-CA');
-        counter.hidden = false;
+    var container = document.getElementById('action-stats');
+    if (!container) return;
+
+    function render(counts) {
+        if (!counts) return;
+        STATS.forEach(function (s) {
+            var n = counts[s.type];
+            if (s.el && typeof n === 'number' && !isNaN(n)) {
+                s.el.textContent = n.toLocaleString('en-CA');
+            }
+        });
+        container.hidden = false;
     }
 
-    // Show the current total on load. Stay hidden if the API can't be reached.
+    // Show the current tallies on load. Stay hidden if the API is unreachable.
     fetch(API + '/api/action-count')
         .then(function (r) { return r.ok ? r.json() : null; })
-        .then(function (d) { if (d) render(d.count); })
-        .catch(function () { /* leave the counter hidden */ });
+        .then(render)
+        .catch(function () { /* leave the stats hidden */ });
 
-    // Fire-and-forget. Both the once-per-view guard here and the API's
-    // per-visitor daily cap keep repeated clicks from inflating the count.
-    var tracked = false;
-    function track() {
-        if (tracked) return;
-        tracked = true;
-        fetch(API + '/api/track-action', { method: 'POST', keepalive: true })
+    // Fire-and-forget: report each completed action. There is no dedup, so every
+    // successful action increments the tally.
+    function track(type) {
+        fetch(API + '/api/track-action?type=' + type, { method: 'POST', keepalive: true })
             .then(function (r) { return r.ok ? r.json() : null; })
-            .then(function (d) { if (d) render(d.count); })
+            .then(render)
             .catch(function () { /* ignore */ });
     }
 
-    var petition = document.getElementById('petition-form');
-    if (petition) petition.addEventListener('submit', track);
-
-    var mpSend = document.getElementById('mp-send');
-    if (mpSend) mpSend.addEventListener('click', track);
-
-    var mpCopy = document.getElementById('mp-copy');
-    if (mpCopy) mpCopy.addEventListener('click', track);
+    STATS.forEach(function (s) {
+        document.addEventListener(s.event, function () { track(s.type); });
+    });
 })();
